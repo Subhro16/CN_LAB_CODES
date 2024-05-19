@@ -1,0 +1,38 @@
+[student@lab7-pc12 ~]$ su
+Password: 
+[root@lab7-pc12 student]# dnf install ftp
+Last metadata expiration check: 0:22:37 ago on Saturday 04 May 2024 10:17:17 AM IST.
+Package ftp-0.17-75.fc27.x86_64 is already installed, skipping.
+Dependencies resolved.
+Nothing to do.
+Complete!
+[root@lab7-pc12 student]# ftp 172.16.7.11
+Connected to 172.16.7.11 (172.16.7.11).
+220 (vsFTPd 3.0.5)
+Name (172.16.7.11:root): student
+331 Please specify the password.
+Password:
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp> get example.txt
+local: example.txt remote: example.txt
+227 Entering Passive Mode (172,16,7,11,189,94).
+150 Opening BINARY mode data connection for example.txt (18 bytes).
+226 Transfer complete.
+18 bytes received in 6.7e-05 secs (268.66 Kbytes/sec)
+ftp> put myExample.txt 
+local: myExample.txt remote: myExample.txt
+227 Entering Passive Mode (172,16,7,11,57,86).
+150 Ok to send data.
+226 Transfer complete.
+18 bytes sent in 5.6e-05 secs (321.43 Kbytes/sec)
+ftp> 
+
+
+
+
+
+
+
+

@@ -1,0 +1,61 @@
+[student@fedora ~]$ su
+Password: 
+[root@fedora student]# rpm -qa | grep ftp 
+python3-requests-ftp-0.3.1-27.fc38.noarch
+vsftpd-3.0.5-4.fc38.x86_64
+[root@fedora student]# dnf install vsftpd
+Last metadata expiration check: 0:26:34 ago on Saturday 04 May 2024 10:04:58 AM.
+Package vsftpd-3.0.5-4.fc38.x86_64 is already installed.
+Dependencies resolved.
+Nothing to do.
+Complete!
+[root@fedora student]#  cd /etc
+[root@fedora etc]# cd vsftpd
+[root@fedora vsftpd]# ls
+ftpusers  user_list  vsftpd.conf  vsftpd_conf_migrate.sh
+[root@fedora vsftpd]# pluma vsftpd.conf 
+
+(pluma:2766): dconf-WARNING **: 10:31:59.697: failed to commit changes to dconf: Error sending credentials: Error sending message: Broken pipe
+Error creating proxy: Error receiving data: Connection reset by peer (g-io-error-quark, 44)
+Error creating proxy: Error receiving data: Connection reset by peer (g-io-error-quark, 44)
+Error creating proxy: Error sending data: Broken pipe (g-io-error-quark, 44)
+Error creating proxy: Error receiving data: Connection reset by peer (g-io-error-quark, 44)
+
+(pluma:2766): dconf-WARNING **: 10:31:59.762: failed to commit changes to dconf: Error sending credentials: Error sending message: Broken pipe
+
+(pluma:2766): dconf-WARNING **: 10:31:59.764: failed to commit changes to dconf: Error sending credentials: Error sending message: Broken pipe
+
+(pluma:2766): dconf-WARNING **: 10:31:59.764: failed to commit changes to dconf: Error sending credentials: Error sending message: Broken pipe
+
+(pluma:2766): dconf-WARNING **: 10:32:11.295: failed to commit changes to dconf: Error sending credentials: Error sending message: Broken pipe
+
+(pluma:2766): dconf-WARNING **: 10:32:11.296: failed to commit changes to dconf: Error sending credentials: Error sending message: Broken pipe
+
+(pluma:2766): dconf-WARNING **: 10:32:11.296: failed to commit changes to dconf: Error sending credentials: Error sending message: Broken pipe
+[root@fedora vsftpd]# firewall-cmd --add-service=ftp --permanent
+Warning: ALREADY_ENABLED: ftp
+success
+[root@fedora vsftpd]# firewall-cmd --reload
+success
+[root@fedora vsftpd]# systemctl start vsftpd
+[root@fedora vsftpd]# ifconfig
+enp3s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 172.16.7.11  netmask 255.255.0.0  broadcast 172.16.255.255
+        inet6 fe80::292d:1c21:202e:e15c  prefixlen 64  scopeid 0x20<link>
+        ether 50:65:f3:4c:02:14  txqueuelen 1000  (Ethernet)
+        RX packets 33167  bytes 2016199 (1.9 MiB)
+        RX errors 0  dropped 5  overruns 0  frame 0
+        TX packets 115  bytes 11893 (11.6 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 18  bytes 2738 (2.6 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 18  bytes 2738 (2.6 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+[root@fedora vsftpd]# 
+
