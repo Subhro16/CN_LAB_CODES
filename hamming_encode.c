@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
+#include<arpa/inet.h>
+#include<unistd.h>
 
 int main(void){
 	char data[100];
@@ -51,7 +53,15 @@ int main(void){
 	for(i = dl+r;i>=1;i--){
 		printf("%d ",data2[i]);
 	}
+	int sd,cadl;
+	struct sockaddr_in sad,cad;
+	sd=socket(AF_INET,SOCK_STREAM,IPPROTO_TCP);
+	sad.sin_family=AF_INET;
+	sad.sin_port=htons(9690);
+	sad.sin_addr.s_addr=inet_addr("127.0.0.1");
+	connect(sd,(struct sockaddr *)&sad,sizeof(sad));
+	send(sd,data2,dl+r,0);
 	printf("\n");
-	
+	close(sd);
 	return 0;
 }
