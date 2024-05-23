@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <string.h>
+#include<arpa/inet.h>
+#include<unistd.h>
+#include<math.h>
 void main(void){
 	char data[50],divisor[10],data1[50];
 	int dl,divl,i,j;
@@ -23,5 +26,15 @@ void main(void){
 		}
 	}
 	for(i = dl;i<dl+(divl-1);i++) data[i] = data1[i];
+	//printf("\nThe codeword is::%s",data);
+	int sd,cadl;
+	struct sockaddr_in sad,cad;
+	sd = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP);
+	sad.sin_family=AF_INET;
+	sad.sin_port=htons(9996);
+	sad.sin_addr.s_addr=inet_addr("127.0.0.1");
+	connect(sd,(struct sockaddr*)&sad,sizeof(sad));
 	printf("\nThe codeword is::%s",data);
+	send(sd,data,sizeof(data),0);
+	close(sd);
 }
