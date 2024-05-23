@@ -1,13 +1,27 @@
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
+#include<arpa/inet.h>
+#include<unistd.h>
 
 int main(void){
 	char data[100];
 	int data1[100],data2[100];
 	int dl,r,i=0,j=0,k=0,z,c,l; //11000101100
-	printf("\nEnter the dataword::");
-	scanf("%s",data);
+	/*printf("\nEnter the dataword::");
+	scanf("%s",data);*/
+	int sd,cd,cadl;
+	struct sockaddr_in sad,cad;
+	sd=socket(AF_INET,SOCK_STREAM,IPPROTO_TCP);
+	sad.sin_family=AF_INET;
+	sad.sin_port=htons(9690);
+	sad.sin_addr.s_addr=inet_addr("127.0.0.1");
+	bind(sd,(struct sockaddr *)&sad,sizeof(sad));
+	listen(sd,10);
+	cadl=sizeof(sad);
+	cd=accept(sd,(struct sockaddr *)&cad,&cadl);
+	recv(cd,data,strlen(data),0);
+	printf("\nCodeword received : ");
 	dl=strlen(data);
 	
 	while(1){
@@ -59,6 +73,7 @@ int main(void){
 		}
 		printf("\n");
 	}
-	
+	close(cd);
+	close(sd);
 	return 0;
 }
